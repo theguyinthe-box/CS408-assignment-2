@@ -28,10 +28,6 @@ process.o : process.cpp process.h
 scheduler.o : scheduler.cpp scheduler.h
 	$(CC) $(CCFLAGS) scheduler.cpp
 
-# Once things work, people frequently delete their object files.
-# If you use "make clean", this will do it for you.
-# As we use gnuemacs which leaves auto save files termintating
-# with ~, we will delete those as well.
 clean :
 	rm -f *.o *~ $(PROGRAM)
 
