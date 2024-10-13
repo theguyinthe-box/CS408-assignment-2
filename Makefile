@@ -22,11 +22,12 @@ main.o : main.cpp
 log.o : log.c
 	$(CC) $(CFLAGS) log.c
 
-process.o : process.cpp process.h
-	$(CC) $(CCFLAGS) process.cpp
 
 scheduler.o : scheduler.cpp scheduler.h
 	$(CC) $(CCFLAGS) scheduler.cpp
+
+process.o : process.cpp process.h
+	$(CC) $(CCFLAGS) process.cpp
 
 clean :
 	rm -f *.o *~ $(PROGRAM)

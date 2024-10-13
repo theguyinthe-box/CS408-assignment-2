@@ -1,14 +1,22 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <string.h>
 #include <unistd.h>
+#include <fstream>
 #include <string>
+#include <vector>
 #include <algorithm>
+#include <pthread.h>
+
+
 #include "log.h"
 #include "process.h"
 #include "scheduler.h"
 
 using namespace std;
+
+
+
+vector<unsigned int> extractBursts(string buffer);
 
 int main(int argc, char *argv[]) {
 
@@ -38,16 +46,49 @@ int main(int argc, char *argv[]) {
     }
   }
 
-  FILE *fptr = fopen(argv[optind], "r");
-  if(fptr == NULL) {
+  ifstream input(argv[optind]);
+
+  if(!input) {
     printf("Error opening file %s\n", argv[1]);
     exit(2);
   }
 
-  int fileCursor = 0;
-  while(!feof(fptr)) {
+  vector<Process> processes;
 
+  string buffer;
+
+  for(int i = 0; getline(input,buffer); i++) {
+    Process proc(extractBursts(buffer), i);
+    processes.push_back(proc);
   }
 
+  pthread_t threads;
+
+  do {
+
+  }while(!SharedData.waiting())
+
+  //TODO implement this and compare in scheduler.h
+  //stable_sort(processes.begin(),processes.end(),compareProcs);
+
+
+
+
   return 0;
+}
+
+//method
+vector<unsigned int> extractBursts(string buffer) {
+  vector<unsigned int> burstArr;
+  size_t pos = 0;
+  string delim = " ";
+  string token;
+  while((pos = buffer.find(delim)) != string::npos)  {
+    token = buffer.substr(0, pos);
+    burstArr.push_back(stoi(token));
+    buffer.erase(0, pos + delim.length());
+  }
+  //shrink memoryspace of vector to conserve some bits
+  burstArr.shrink_to_fit();
+  return burstArr;
 }
