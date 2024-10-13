@@ -19,14 +19,13 @@ $(PROGRAM) : $(OBJS)
 main.o : main.cpp
 	$(CC) $(CCFLAGS) main.cpp
 
-log.o : log.c
+log.o : log.c log.h
 	$(CC) $(CFLAGS) log.c
 
-
-scheduler.o : scheduler.cpp scheduler.h
+scheduler.o : scheduler.h
 	$(CC) $(CCFLAGS) scheduler.cpp
 
-process.o : process.cpp process.h
+process.o : process.h
 	$(CC) $(CCFLAGS) process.cpp
 
 clean :

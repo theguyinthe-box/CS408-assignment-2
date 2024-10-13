@@ -53,14 +53,21 @@ int main(int argc, char *argv[]) {
     exit(2);
   }
 
-  vector<Process> processes;
+  SharedData* share = new SharedData();
+
+  share->alpha = alpha;
+  share->waiting = false;
 
   string buffer;
 
   for(int i = 0; getline(input,buffer); i++) {
     Process proc(extractBursts(buffer), i);
-    processes.push_back(proc);
+    share->allBursts.push_back(proc);
   }
+
+
+  //instantiate shared data
+
 
   pthread_t threads;
 
