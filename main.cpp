@@ -1,5 +1,3 @@
-#include <stdio.h>
-#include <stdlib.h>
 #include <unistd.h>
 #include <fstream>
 #include <string>
@@ -53,27 +51,22 @@ int main(int argc, char *argv[]) {
     exit(2);
   }
 
-  SharedData* share = new SharedData();
-
-  share->alpha = alpha;
-  share->waiting = false;
+  SharedData* trustFund = new SharedData(alpha);
 
   string buffer;
-
   for(int i = 0; getline(input,buffer); i++) {
-    Process proc(extractBursts(buffer), i);
-    share->allBursts.push_back(proc);
+    Process proc(extractBursts(buffer),i);
+    trustFund->processes.push_back(proc);
   }
 
+  pthread_t schedulerThread;
 
-  //instantiate shared data
-
-
-  pthread_t threads;
+  pthread_create(&schedulerThread, NULL,
+                &schedulerMain, &trustFund);
 
   do {
 
-  }while(!SharedData.waiting())
+  }while(!trustFund->waiting);
 
   //TODO implement this and compare in scheduler.h
   //stable_sort(processes.begin(),processes.end(),compareProcs);
@@ -81,7 +74,7 @@ int main(int argc, char *argv[]) {
 
 
 
-  return 0;
+  exit(0);
 }
 
 //method

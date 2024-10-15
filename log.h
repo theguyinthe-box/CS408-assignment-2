@@ -1,6 +1,5 @@
 #ifndef LOG_H
 #define LOG_H
-
 /*
  * Compilation notes:
  * C compilers:
@@ -19,6 +18,7 @@
 #ifdef __cplusplus
 /* C++ includes */
 #include <stdint.h>
+
 #else
 /* C includes */
 #include <inttypes.h>
@@ -57,8 +57,8 @@ void log_cpuburst_execution (unsigned int procID,
  * 
  * @param bursts - 1D array of integers
  */
-void log_process_bursts (unsigned int procID, unsigned int bursts[], size_t numOfBursts); 
-
+//void log_process_bursts (unsigned int procID, unsigned int bursts[], size_t numOfBursts);
+//void log_process_bursts (unsigned int procID, vector<unsigned int> bursts);
 /**
  * @brief log the estimated bursts from exponential averaging
  * 
@@ -76,7 +76,8 @@ void log_process_estimated_bursts (unsigned int procID, float bursts[], size_t n
 void log_process_completion (unsigned int procID, 
                              unsigned int completionTime,
                              // wait time is the time spent in the ready queue
-                             // wait time = completionTime - total cpu bursts - total io bursts
+                             // wait time = completionTime - total c
+                             // pu bursts - total io bursts
                              unsigned int totalWaitTime);
 
 #endif

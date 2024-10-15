@@ -4,7 +4,7 @@
 #include <vector>
 
 #include "log.h"
-#include "scheduler.h"
+
 
 using namespace std;
 
@@ -17,6 +17,7 @@ typedef enum {
 
 struct Process {
     vector<unsigned int> bursts;
+
     unsigned int procID,
                  cpuExecutedTime,
                  ioExecutedTime,
@@ -30,13 +31,18 @@ struct Process {
                                                         state(READY) {}
 };
 
-Process processInit(Process, vector<unsigned int>, unsigned int);
-
 void incrementCPU(Process *process) {
     process->cpuExecutedTime += process->bursts.front();
 }
 void incrementIO(Process *process) {
     process->ioExecutedTime += process->bursts.front();
+}
+unsigned int getBurstSum(Process *process) {
+    unsigned int sum = 0;
+    for (unsigned int i = 0; i < process->bursts.size(); ++i) {
+        sum += process->bursts[i];
+    }
+    return sum;
 }
 
 #endif
