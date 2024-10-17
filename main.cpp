@@ -5,9 +5,6 @@
 #include <algorithm>
 #include <pthread.h>
 
-
-#include "log.h"
-#include "process.h"
 #include "scheduler.h"
 
 using namespace std;
@@ -15,6 +12,7 @@ using namespace std;
 
 
 vector<unsigned int> extractBursts(string buffer);
+
 
 int main(int argc, char *argv[]) {
 
@@ -57,22 +55,28 @@ int main(int argc, char *argv[]) {
   for(int i = 0; getline(input,buffer); i++) {
     Process proc(extractBursts(buffer),i);
     trustFund->processes.push_back(proc);
+    //trustFund->bursts.push_back(extractBursts(buffer));
   }
 
+
+  //SharedData* trustFund = new SharedData(alpha);
+
+  /*
+  for(int i = 0; getline(input,buffer); i++) {
+      trustFund->allBursts.push_back(buffer);
+  }
+  */
+
+  pthread_attr_t	pthread_attr_default;
   pthread_t schedulerThread;
 
-  pthread_create(&schedulerThread, NULL,
-                &schedulerMain, &trustFund);
+  pthread_attr_init(&pthread_attr_default);
+  pthread_create(&schedulerThread, &pthread_attr_default,
+                 &schedulerMain, trustFund);
 
   do {
 
   }while(!trustFund->waiting);
-
-  //TODO implement this and compare in scheduler.h
-  //stable_sort(processes.begin(),processes.end(),compareProcs);
-
-
-
 
   exit(0);
 }
@@ -83,12 +87,25 @@ vector<unsigned int> extractBursts(string buffer) {
   size_t pos = 0;
   string delim = " ";
   string token;
+
   while((pos = buffer.find(delim)) != string::npos)  {
     token = buffer.substr(0, pos);
     burstArr.push_back(stoi(token));
     buffer.erase(0, pos + delim.length());
   }
+  //grab the last integer after the last delimiter
+  token = buffer.substr(0, pos);
+  burstArr.push_back(stoi(token));
+
+  //buffer.erase(0, pos + delim.length());
+
   //shrink memoryspace of vector to conserve some bits
   burstArr.shrink_to_fit();
+  if(burstArr.size()%2 == 0) {
+    printf("Invalid number of bursts for process detected, bursts must be odd");
+  }
   return burstArr;
 }
+
+
+

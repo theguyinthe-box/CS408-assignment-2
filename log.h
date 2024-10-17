@@ -57,14 +57,14 @@ void log_cpuburst_execution (unsigned int procID,
  * 
  * @param bursts - 1D array of integers
  */
-//void log_process_bursts (unsigned int procID, unsigned int bursts[], size_t numOfBursts);
+void log_process_bursts (unsigned int procID, unsigned int bursts[], unsigned int numOfBursts);
 //void log_process_bursts (unsigned int procID, vector<unsigned int> bursts);
 /**
  * @brief log the estimated bursts from exponential averaging
  * 
  * @param bursts - 1D array of float numbers
  */
-void log_process_estimated_bursts (unsigned int procID, float bursts[], size_t numOfBursts); 
+void log_process_estimated_bursts (unsigned int procID, float bursts[], unsigned int numOfBursts);
 
 /**
  * @brief 

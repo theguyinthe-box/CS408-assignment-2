@@ -43,7 +43,7 @@ void log_cpuburst_execution (unsigned int procID,
  * 
  * @param bursts - 1D array of integers
  */
-void log_process_bursts (unsigned int procID, unsigned int bursts[], size_t numOfBursts) {
+void log_process_bursts (unsigned int procID, unsigned int bursts[], unsigned int numOfBursts) {
 
   printf("P%d: ", procID);
 
@@ -60,7 +60,7 @@ void log_process_bursts (unsigned int procID, unsigned int bursts[], size_t numO
  * 
  * @param bursts - 1D array of floating points
  */
-void log_process_estimated_bursts (unsigned int procID, float bursts[], size_t numOfBursts) {
+void log_process_estimated_bursts (unsigned int procID, float bursts[], unsigned int numOfBursts) {
 
   printf("P%d: ", procID);
 

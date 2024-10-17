@@ -7,7 +7,7 @@ CCFLAGS = -std=c++11 -Wall -g3 -c
 CFLAGS = -g3 -c
 
 # object files
-OBJS = process.o scheduler.o log.o main.o 
+OBJS = main.o log.o scheduler.o process.o
 
 # Program name
 PROGRAM = schedule
@@ -25,8 +25,8 @@ scheduler.o : scheduler.cpp scheduler.h
 process.o : process.cpp process.h
 	$(CC) $(CCFLAGS) process.cpp
 
-log.o : log.c log.h
-	$(CC) $(CFLAGS) log.c
+log.o : log.cpp log.h
+	$(CC) $(CFLAGS) log.cpp
 
 clean :
 	rm -f *.o *~ $(PROGRAM)
